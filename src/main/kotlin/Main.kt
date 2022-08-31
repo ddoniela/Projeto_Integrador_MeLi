@@ -6,7 +6,11 @@ fun main() {
     val minibus = Vehicle( "CC333C", VehicleType.MINIBUS, Calendar.getInstance())
     val bus = Vehicle("DD44DDD", VehicleType.BUS, Calendar.getInstance())
 
-    val parking = Parking(mutableSetOf(bus, minibus, car))
+    val parking = Parking(mutableSetOf())
 
-    parking.addVehicle(moto)
+    val vehicles = mutableListOf<Vehicle>(moto, car, minibus, bus)
+
+    for (vehicle in vehicles) {
+        parking.addVehicle(vehicle)
+    }
 }
