@@ -1,4 +1,4 @@
-data class Parking(
+open class Parking(
     var vehicles: MutableSet<Vehicle>,
     val maxSlots: Int = 3
 ) {
@@ -11,6 +11,5 @@ data class Parking(
             println("Sorry, the check-in failed.")
             return false
         }
-
     }
 }
