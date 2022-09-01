@@ -1,7 +1,6 @@
 import kotlin.math.roundToInt
 
 class ParkingSpace(
-    val vehicle: Vehicle,
     val parking: Parking
 ) {
     fun checkOutVehicle(
@@ -11,9 +10,11 @@ class ParkingSpace(
     ) {
         val car = parking.vehicles.find { it.plate == plate }
         if (car != null) {
-            parking.vehicles.remove(vehicle)
+            parking.vehicles.remove(car)
 
-            val totalValue = calculateFee(car.type, car.parkedTime)
+            val hasDiscountCard = car.discountCard != null;
+
+            val totalValue = calculateFee(car.type, car.parkedTime, hasDiscountCard)
 
             onSuccess(totalValue)
         } else {
@@ -21,7 +22,7 @@ class ParkingSpace(
         }
     }
 
-    fun calculateFee(type: VehicleType, parkedTime: Long, hasDiscountCard: Boolean?): Int {
+    fun calculateFee(type: VehicleType, parkedTime: Long, hasDiscountCard: Boolean): Int {
         var totalFee = type.price.toDouble()
         var count = parkedTime - 120
 
@@ -30,19 +31,10 @@ class ParkingSpace(
             count -= 15
         }
 
-        if (hasDiscountCard != null) {
-            totalFee -= (totalFee * 0.15)
+        if (hasDiscountCard) {
+            totalFee = (totalFee * 0.85)
         }
 
         return totalFee.roundToInt()
-
-
     }
 }
-
-/*
-
-2) Após obter o total da tarifa, aplique o desconto se aplicável e retorne o
-valor atualizado (os centavos não devem ser contados na cobrança da
-tarifa).
- */
