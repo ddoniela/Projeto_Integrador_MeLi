@@ -11,9 +11,22 @@ class ParkingSpace(
         if (car != null) {
             parking.vehicles.remove(vehicle)
 
-            onSuccess(0)
+            val totalValue = calculateFee(car.type, car.parkedTime)
+
+            onSuccess(totalValue)
         } else {
             onError()
         }
+    }
+
+    fun calculateFee(type: VehicleType, parkedTime: Long): Int {
+        var totalFee = type.price
+        var count = parkedTime - 120
+
+        while (count > 0) {
+            totalFee += 5
+            count -= 15
+        }
+        return totalFee
     }
 }
