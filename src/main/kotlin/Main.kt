@@ -23,7 +23,11 @@ fun main() {
     }
 
     val parkingSpace = ParkingSpace(parking)
-    parkingSpace.checkOutVehicle("B222BB", ::onSuccess, ::onError)
+    parkingSpace.checkOutVehicle("AA111AA", ::onSuccess, ::onError)
+    parking.addVehicle(bus)
+    parkingSpace.checkOutVehicle("DD44DDD", ::onSuccess, ::onError)
 
+    parking.earningsParking()
 
+    parking.listVehicles()
 }

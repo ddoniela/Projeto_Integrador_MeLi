@@ -16,6 +16,8 @@ class ParkingSpace(
 
             val totalValue = calculateFee(car.type, car.parkedTime, hasDiscountCard)
 
+            parking.par = Pair(parking.par.first + 1, parking.par.second + totalValue)
+
             onSuccess(totalValue)
         } else {
             onError()
